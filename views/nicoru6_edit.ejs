@@ -1,0 +1,25 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= data.name %></title>
+</head>
+<body>
+  <h2><%= data.name %>の編集</h2>
+  <form action="/nicoru6/update/<%= id %>" method="POST">
+    <table>
+      <tr><th>項目</th><th>データ</th></tr>
+      <tr><td>年</td><td><input type="number" name="year" value="<%= data.year %>"></td></tr>
+      <tr><td>月</td><td><input type="number" name="month" value="<%= data.month %>"></td></tr>
+      <tr><td>日</td><td><input type="number" name="date" value="<%= data.date %>"></td></tr>
+      <tr><td>コメント時間</td><td><input type="text" name="time" value="<%= data.time %>"></td></tr>
+      <tr><td>動画名</td><td><input type="text" name="name" value="<%= data.name %>"></td></tr>
+      <tr><td>動画URL</td><td><input type="text" name="url" value="<%= data.url %>"></td></tr>
+      <tr><td>ニコる数</td><td><input type="number" name="fig" value="<%= data.fig %>"></td></tr>
+      <tr><td>コメント</td><td><input type="text" name="comment" value="<%= data.comment %>"></td></tr>
+    </table>
+    <input type="submit" value="登録">
+  </form>
+  <a href="/nicoru6/">6月一覧に戻る</a>
+</body>
+</html>

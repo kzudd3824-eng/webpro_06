@@ -1,0 +1,21 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ニコる11月</title>
+</head>
+<body>
+  <h2>9回以上ニコられた11月のコメント</h2>
+  <table>
+    <tr><th>ニコる数</th><th>コメント</th></tr>
+      <% let number = 0 %>
+      <% for( let row of data ) { %>
+        <tr><td><%= row.fig %></td>
+        <td><a href="/nicoru11/<%= number %>"><%= row.comment %></a></td></tr>
+        <% number += 1 %>
+      <% } %>
+  </table>
+  <p><a href="/nicoru11_add">追加</a></p>
+  <p><a href="/nicoru">月一覧に戻る</a></p>
+</body>
+</html>

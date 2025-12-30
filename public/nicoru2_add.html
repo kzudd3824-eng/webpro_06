@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>コメントを追加する</title>
+</head>
+<body>
+    <form action="/nicoru2_add" method="GET">
+        <label for="year">年</label>
+        <input type="number" name="year" id="year" required>
+
+        <label for="month">月</label>
+        <input type="number" name="month" id="month" required>
+
+        <label for="date">日</label>
+        <input type="number" name="date" id="date" required>
+
+        <label for="time">時間</label>
+        <input type="text" name="time" id="time" required>
+
+        <label for="name">動画名</label>
+        <input type="text" name="name" id="name" required>
+
+        <label for="url">URL</label>
+        <input type="text" name="url" id="url" required>
+
+        <label for="fig">ニコられた回数</label>
+        <input type="number" name="fig" id="fig" required>
+
+        <label for="comment">コメント</label>
+        <input type="text" name="comment" id="comment" required>
+
+        <input type="submit" values="登録">
+    </form>
+    <p><a href="/nicoru2">2月一覧に戻る</a></p>
+</body>
+</html>

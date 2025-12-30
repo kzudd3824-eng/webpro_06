@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>千葉の店舗を追加する</title>
+</head>
+<body>
+
+    <h2>千葉の店舗 追加</h2>
+
+    <form action="/chiba_add" method="GET">
+
+        <label for="name">店名</label>
+        <input type="text" name="name" id="name" required>
+
+        <label for="adress">住所</label>
+        <input type="text" name="adress" id="adress" required>
+
+        <label for="open">営業時間</label>
+        <input type="text" name="open" id="open" required>
+
+        <label for="time">滞在時間</label>
+        <input type="number" name="time" id="time" required>
+
+        <label for="comment">コメント</label>
+        <input type="text" name="comment" id="comment" required>
+
+        <input type="submit" value="登録">
+    </form>
+
+    <p><a href="/chiba">千葉一覧に戻る</a></p>
+
+</body>
+</html>

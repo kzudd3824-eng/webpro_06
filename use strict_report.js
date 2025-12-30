@@ -4,119 +4,6 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use("/public", express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
-let station2 = [
-  { id:1, code:"JE01", name:"東京駅", change:"総武本線，中央線，etc", passengers:403831, distance:0 },
-  { id:2, code:"JE02", name:"八丁堀駅", change:"日比谷線", passengers:31071, distance:1.2 },
-  { id:3, code:"JE05", name:"新木場駅", change:"有楽町線，りんかい線", passengers:67206, distance:7.4 },
-  { id:4, code:"JE07", name:"舞浜駅", change:"舞浜リゾートライン", passengers:76156,distance:12.7 },
-  { id:5, code:"JE12", name:"新習志野駅", change:"", passengers:11655, distance:28.3 },
-  { id:6, code:"JE17", name:"千葉みなと駅", change:"千葉都市モノレール", passengers:16602, distance:39.0 },
-  { id:7, code:"JE18", name:"蘇我駅", change:"内房線，外房線", passengers:31328, distance:43.0 },
-];
-
-app.get("/keiyo2", (req, res) => {
-  // 本来ならここにDBとのやり取りが入る
-  res.render('keiyo2', {data: station2} );
-});
-
-app.get("/keiyo2/:number", (req, res) => {
-  // 本来ならここにDBとのやり取りが入る
-  const number = req.params.number;
-  const detail = station2[ number ];
-  res.render('keiyo2_detail', {data: detail} );
-});
-
-app.get("/keiyo2_add", (req, res) => {
-  let id = req.query.id;
-  let code = req.query.code;
-  let name = req.query.name;
-  let change = req.query.change;
-  let passengers = req.query.passengers;
-  let distance = req.query.distance;
-  let newdata = { id: id, code: code, name: name, change: change, passengers: passengers, distance: distance };
-  station2.push( newdata );
-  res.redirect('/public/keiyo2_add.html');
-});
-
-app.get("/keiyo2_add", (req, res) => {
-  let id = req.query.id;
-  let code = req.query.code;
-  let name = req.query.name;
-  let change = req.query.change;
-  let passengers = req.query.passengers;
-  let distance = req.query.distance;
-  let newdata = { id: id, code: code, name: name, change: change, passengers: passengers, distance: distance };
-  station2.push( newdata );
-  res.render('db1', { data: station2 });
-});
-
-app.get("/hello1", (req, res) => {
-  const message1 = "Hello world";
-  const message2 = "Bon jour";
-  res.render('show', { greet1:message1, greet2:message2});
-});
-
-app.get("/hello2", (req, res) => {
-  res.render('show', { greet1:"Hello world", greet2:"Bon jour"});
-});
-
-app.get("/icon", (req, res) => {
-  res.render('icon', { filename:"./public/Apple_logo_black.svg", alt:"Apple Logo"});
-});
-
-app.get("/omikuji1", (req, res) => {
-  const num = Math.floor( Math.random() * 6 + 1 );
-  let luck = '';
-  if( num==1 ) luck = '大吉';
-  else if( num==2 ) luck = '中吉';
-
-  res.send( '今日の運勢は' + luck + 'です' );
-});
-
-app.get("/omikuji2", (req, res) => {
-  const num = Math.floor( Math.random() * 6 + 1 );
-  let luck = '';
-  if( num==1 ) luck = '大吉';
-  else if( num==2 ) luck = '中吉';
-
-  res.render( 'omikuji2', {result:luck} );
-});
-
-app.get("/janken", (req, res) => {
-  let janken = Number(req.query.janken);
-  let win = Number( req.query.win );
-  let total = Number( req.query.total );
-  console.log( {janken, win, total});
-  const num = Math.floor( Math.random() * 3 );
-  let gu = 0;
-  let ty = 0;
-  let pa = 0;
-  let cpu = '';
-  let judgement = '';
-  if( num==0 ) cpu = 'グー';
-  else if( num==1 ) cpu = 'チョキ';
-  else cpu = 'パー';
-  // ここに勝敗の判定を入れる
-  // 以下の数行は人間の勝ちの場合の処理なので，
-  // 判定に沿ってあいこと負けの処理を追加する
-  const result = (janken - num + 3) % 3;
-
-  if(result==0) judgement = '引き分け';
-  else if(result==2) judgement = '勝ち';
-  else judgement = '負け';
-
-  if(result==2) win += 1;
-  total += 1;
-
-  const display = {
-    your: janken,
-    cpu: cpu,
-    judgement: judgement,
-    win: win,
-    total: total
-  }
-  res.render( 'janken', display );
-});
 
 let nicoru1 = [
   { year:2025, month:1, date:5, time:"00:00", name:"司令官", url:"https://www.nicovideo.jp/watch/sm44485911", fig:54, comment:"いいでしょう、10万再生の音だ。" },
@@ -1286,6 +1173,115 @@ app.get("/nyororon/:number", (req, res) => {
   const number = req.params.number;
   const detail = nyororon[number];
   res.render('nyororon_detail', { id: number, data: detail });
+});
+
+let saitama = [
+  { name:"BOOKOFF 東川口マルエツ店", adress:"埼玉県川口市戸塚2-28-20マルエツ2F", open:"10:00～21:00", time:21, comment:"ストレージは適当に並べられているため，見づらい。たまに面白い掘り出し物が見つかる" },
+  { name:"ふるいちイオンモール川口前川店", adress:"埼玉県川口市前川1-1-11イオンモール川口前川店3F", open:"10:00～21:00", time:25, comment:"新しいストレージは分けられているためわかりすい。狭い" },
+  { name:"カードボックス川口店", adress:"埼玉県川口市本町2-7-25 ミエルかわぐち内3F", open:"10:00～21:00", time:26, comment:"行ったのがデュエマにハマる前だったため、あまり記憶がない" },  
+  { name:"桃太郎王国草加バイパス店", adress:"埼玉県草加市西町458-6", open:"11:30～20:00", time:23, comment:"ストレージの安さが魅力的であるが、ショーケースの中の値段が高い" },  
+];
+
+let chiba = [
+  { name:"カードラボ津田沼店", adress:"千葉県習志野市津田沼1-23-1 イオンモール津田沼 2階", open:"10:00～21:00", time:100, comment:"ストレージはとても見やすいが、高い" },
+  { name:"ホビーステーション 津田沼店", adress:"千葉県習志野市津田沼1丁目2-22 小倉ビル 3階", open:"12:00～21:00", time:96, comment:"ちょっとしかショーケースを覗いてないが、品揃えの悪さと狭さが際立つ" },
+];
+
+app.get("/cardshop", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  res.render('cardshop', {data: saitama} );
+});
+
+app.get("/saitama", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  res.render('saitama', { data: saitama });
+});
+
+app.get("/saitama_add", (req, res) => {
+  let name = req.query.name;
+  let adress = req.query.adress;
+  let open = req.query.open;
+  let time = req.query.time;
+  let comment = req.query.comment;
+  let newdata = {name: name,adress: adress,open: open,time: time,comment: comment};
+  saitama.push(newdata);
+  res.redirect('/public/saitama_add.html');
+});
+
+// Edit
+app.get("/saitama/edit/:number", (req, res) => { 
+  // 本来ならここにDBとのやり取りが入る
+  const number = req.params.number;
+  const detail = saitama[number];
+  res.render('saitama_edit', { id: number, data: detail });
+});
+
+
+// Update
+app.post("/saitama/update/:number", (req, res) => {
+  // 本来は変更する番号が存在するか，各項目が正しいか厳重にチェックする
+  // 本来ならここにDBとのやり取りが入る
+  saitama[req.params.number].name = req.body.name;
+  saitama[req.params.number].adress = req.body.adress;
+  saitama[req.params.number].open = req.body.open;
+  saitama[req.params.number].time = req.body.time;
+  saitama[req.params.number].comment = req.body.comment;
+  console.log(saitama);
+  res.redirect('/saitama');
+});
+
+
+app.get("/saitama/:number", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  const number = req.params.number;
+  const detail = saitama[number];
+  res.render('saitama_detail', { id: number, data: detail });
+});
+
+app.get("/chiba", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  res.render('chiba', { data: chiba });
+});
+
+app.get("/chiba_add", (req, res) => {
+  let name = req.query.name;
+  let adress = req.query.adress;
+  let open = req.query.open;
+  let time = req.query.time;
+  let comment = req.query.comment;
+  let newdata = {name: name,adress: adress,open: open,time: time,comment: comment};
+  chiba.push(newdata);
+  res.redirect('/public/chiba_add.html');
+});
+
+// Edit
+app.get("/chiba/edit/:number", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  const number = req.params.number;
+  const detail = chiba[number];
+  res.render('chiba_edit', { id: number, data: detail });
+});
+
+
+// Update
+app.post("/chiba/update/:number", (req, res) => {
+  // 本来は変更する番号が存在するか，各項目が正しいか厳重にチェックする
+  // 本来ならここにDBとのやり取りが入る
+  chiba[req.params.number].name = req.body.name;
+  chiba[req.params.number].adress = req.body.adress;
+  chiba[req.params.number].open = req.body.open;
+  chiba[req.params.number].time = req.body.time;
+  chiba[req.params.number].comment = req.body.comment;
+  console.log(chiba);
+  res.redirect('/chiba');
+});
+
+app.get("/chiba/:number", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  const number = req.params.number;
+  const detail = chiba[number];
+
+  res.render('chiba_detail', { id: number, data: detail });
 });
 
 app.listen(8080, () => console.log("Example app listening on port 8080!"));

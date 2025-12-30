@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ゴーケツ妖怪を追加する</title>
+</head>
+<body>
+
+    <h2>ゴーケツ妖怪 追加</h2>
+
+    <form action="/goketu_add" method="GET">
+
+        <label for="name">名前</label>
+        <input type="text" name="name" id="name" required>
+
+        <label for="hp">HP</label>
+        <input type="number" name="hp" id="hp" required>
+
+        <label for="power">ちから</label>
+        <input type="number" name="power" id="power" required>
+
+        <label for="magic">ようりょく</label>
+        <input type="number" name="magic" id="magic" required>
+
+        <label for="defence">まもり</label>
+        <input type="number" name="defence" id="defence" required>
+
+        <label for="characteristics">スキル</label>
+        <input type="text" name="characteristics" id="characteristics" required>
+
+        <label for="move1">ワザ1</label>
+        <input type="text" name="move1" id="move1" required>
+
+        <label for="move2">ワザ2</label>
+        <input type="text" name="move2" id="move2" required>
+
+        <label for="special">ひっさつわざ</label>
+        <input type="text" name="special" id="special" required>
+
+        <label for="comment">コメント</label>
+        <input type="text" name="comment" id="comment" required>
+
+        <input type="submit" value="登録">
+    </form>
+
+    <p><a href="/goketu">ゴーケツ妖怪一覧に戻る</a></p>
+
+</body>
+</html>

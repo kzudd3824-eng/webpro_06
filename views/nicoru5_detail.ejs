@@ -1,0 +1,17 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= data.name %></title>
+</head>
+<body>
+  <h2>"<%= data.comment %>"の詳細</h2>
+  <table>
+    <tr><th>日時：</th><td><%= data.year %>年<%= data.month %>月<%= data.date %>日</td></tr>
+    <tr><th>ニコる数：</th><td><%= data.fig %></td></tr>
+    <tr><th>動画：</th><td><a href="<%= data.url %>"><%= data.name %></a></td></tr>
+  </table>
+  <p><a href="/nicoru5/edit/<%= id %>">編集</a></p>
+  <p><a href="/nicoru5">ニコる5月一覧に戻る</a></p>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= data.name %></title>
+</head>
+<body>
+  <h2><%= data.name %>の編集</h2>
+
+  <form action="/nyororon/update/<%= id %>" method="POST">
+    <table>
+      <tr><th>項目</th><th>データ</th></tr>
+
+      <tr>
+        <td>名前</td>
+        <td><input type="text" name="name" value="<%= data.name %>"></td>
+      </tr>
+
+      <tr>
+        <td>HP</td>
+        <td><input type="number" name="hp" value="<%= data.hp %>"></td>
+      </tr>
+
+      <tr>
+        <td>ちから</td>
+        <td><input type="number" name="power" value="<%= data.power %>"></td>
+      </tr>
+
+      <tr>
+        <td>ようりょく</td>
+        <td><input type="number" name="magic" value="<%= data.magic %>"></td>
+      </tr>
+
+      <tr>
+        <td>まもり</td>
+        <td><input type="number" name="defence" value="<%= data.defence %>"></td>
+      </tr>
+
+      <tr>
+        <td>スキル</td>
+        <td><input type="text" name="characteristics" value="<%= data.characteristics %>"></td>
+      </tr>
+
+      <tr>
+        <td>ワザ1</td>
+        <td><input type="text" name="move1" value="<%= data.move1 %>"></td>
+      </tr>
+
+      <tr>
+        <td>ワザ2</td>
+        <td><input type="text" name="move2" value="<%= data.move2 %>"></td>
+      </tr>
+
+      <tr>
+        <td>ひっさつわざ</td>
+        <td><input type="text" name="special" value="<%= data.special %>"></td>
+      </tr>
+
+      <tr>
+        <td>コメント</td>
+        <td><input type="text" name="comment" value="<%= data.comment %>"></td>
+      </tr>
+    </table>
+
+    <input type="submit" value="登録">
+  </form>
+
+  <p><a href="/nyororon">ニョロロン妖怪一覧に戻る</a></p>
+</body>
+</html>

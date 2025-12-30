@@ -1,0 +1,40 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= data.name %></title>
+</head>
+<body>
+  <h2>「<%= data.name %>」の詳細</h2>
+
+  <table>
+    <tr>
+      <th>店名</th>
+      <td><%= data.name %></td>
+    </tr>
+
+    <tr>
+      <th>住所</th>
+      <td><%= data.adress %></td>
+    </tr>
+
+    <tr>
+      <th>営業時間</th>
+      <td><%= data.open %></td>
+    </tr>
+
+    <tr>
+      <th>行くのにかかる時間</th>
+      <td><%= data.time %>分</td>
+    </tr>
+
+    <tr>
+      <th>評価</th>
+      <td><%= data.comment %></td>
+    </tr>
+  </table>
+
+  <p><a href="/chiba/edit/<%= id %>">編集</a></p>
+  <p><a href="/chiba">千葉一覧に戻る</a></p>
+</body>
+</html>

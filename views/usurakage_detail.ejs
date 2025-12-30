@@ -1,0 +1,25 @@
+<!Doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= data.name %></title>
+</head>
+<body>
+  <h2>"<%= data.name %>"の詳細</h2>
+  <table>
+    <tr><th>HP</th><td><%= data.hp %></td></tr>
+    <tr><th>ちから</th><td><%= data.power %></td></tr>
+    <tr><th>ようりょく</th><td><%= data.magic %></td></tr>
+    <tr><th>まもり</th><td><%= data.defence %></td></tr>
+    
+    <tr><th>スキル</th><td><%= data.characteristics %></td></tr>
+    <tr><th>ワザ1</th><td><%= data.move1 %></td></tr>
+    <tr><th>ワザ2</th><td><%= data.move2 %></td></tr>
+    <tr><th>ひっさつわざ</th><td><%= data.special %></td></tr>
+    <tr><th>コメント</th><td><%= data.comment %></td></tr>
+  </table>
+
+  <p><a href="/usurakage/edit/<%= id %>">編集</a></p>
+  <p><a href="/usurakage">ウスラカゲ妖怪一覧に戻る</a></p>
+</body>
+</html>

@@ -1335,4 +1335,152 @@ app.get("/nyororon/:number", (req, res) => {
   res.render('nyororon_detail', { id: number, data: detail });
 });
 
+app.get("/nyororon_add", (req, res) => {
+  let name = req.query.name;
+  let hp = req.query.hp;
+  let power = req.query.power;
+  let magic = req.query.magic;
+  let defence = req.query.defence;
+  let characteristics = req.query.characteristics;
+  let move1 = req.query.move1;
+  let move2 = req.query.move2;
+  let special = req.query.special;
+  let comment = req.query.comment;
+  let newdata = {name: name, hp: hp, power: power, magic: magic, defence: defence, characteristics: characteristics, move1: move1, move2: move2, special: special, comment: comment };
+  nyororon.push(newdata);
+  res.redirect('/public/nyororon_add.html');
+});
+
+// Edit
+app.get("/nyororon/edit/:number", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  const number = req.params.number;
+  const detail = nyororon[number];
+  res.render('nyororon_edit', { id: number, data: detail });
+});
+
+
+// Update
+app.post("/nyororon/update/:number", (req, res) => {
+  // 本来は変更する番号が存在するか，各項目が正しいか厳重にチェックする
+  // 本来ならここにDBとのやり取りが入る
+  nyororon[req.params.number].name = req.body.name;
+  nyororon[req.params.number].hp = req.body.hp;
+  nyororon[req.params.number].power = req.body.power;
+  nyororon[req.params.number].magic = req.body.magic;
+  nyororon[req.params.number].defence = req.body.defence;
+  nyororon[req.params.number].characteristics = req.body.characteristics;
+  nyororon[req.params.number].move1 = req.body.move1;
+  nyororon[req.params.number].move2 = req.body.move2;
+  nyororon[req.params.number].special = req.body.special;
+  nyororon[req.params.number].comment = req.body.comment;
+  console.log(nyororon);
+  res.redirect('/nyororon');
+});
+
+let saitama = [ 
+  { name:"BOOKOFF 東川口マルエツ店", adress:"埼玉県川口市戸塚2-28-20マルエツ2F", open:"10:00～21:00", time:21, comment:"ストレージは適当に並べられているため，見づらい。たまに面白い掘り出し物が見つかる" }, 
+  { name:"ふるいちイオンモール川口前川店", adress:"埼玉県川口市前川1-1-11イオンモール川口前川店3F", open:"10:00～21:00", time:25, comment:"新しいストレージは分けられているためわかりすい。狭い" }, 
+  { name:"カードボックス川口店", adress:"埼玉県川口市本町2-7-25 ミエルかわぐち内3F", open:"10:00～21:00", time:26, comment:"行ったのがデュエマにハマる前だったため、あまり記憶がない" }, 
+  { name:"桃太郎王国草加バイパス店", adress:"埼玉県草加市西町458-6", open:"11:30～20:00", time:23, comment:"ストレージの安さが魅力的であるが、ショーケースの中の値段が高い" }, 
+]; 
+
+let chiba = [ 
+  { name:"カードラボ津田沼店", adress:"千葉県習志野市津田沼1-23-1 イオンモール津田沼 2階", open:"10:00～21:00", time:100, comment:"ストレージはとても見やすいが、高い" }, 
+  { name:"ホビーステーション 津田沼店", adress:"千葉県習志野市津田沼1丁目2-22 小倉ビル 3階", open:"12:00～21:00", time:96, comment:"ちょっとしかショーケースを覗いてないが、品揃えの悪さと狭さが際立つ" }, 
+];
+
+app.get("/cardshop", (req, res) => { 
+  // 本来ならここにDBとのやり取りが入る 
+  res.render('cardshop', {data: saitama} ); 
+}); 
+
+app.get("/saitama", (req, res) => { 
+  // 本来ならここにDBとのやり取りが入る 
+  res.render('saitama', { data: saitama }); 
+}); 
+
+app.get("/saitama_add", (req, res) => { 
+  let name = req.query.name; 
+  let adress = req.query.adress; 
+  let open = req.query.open; 
+  let time = req.query.time; 
+  let comment = req.query.comment; 
+  let newdata = {name: name,adress: adress,open: open,time: time,comment: comment}; 
+  saitama.push(newdata); 
+  res.redirect('/public/saitama_add.html'); 
+}); 
+
+// Edit 
+app.get("/saitama/edit/:number", (req, res) => { 
+  // 本来ならここにDBとのやり取りが入る 
+  const number = req.params.number; 
+  const detail = saitama[number]; 
+  res.render('saitama_edit', { id: number, data: detail }); 
+}); 
+
+// Update 
+app.post("/saitama/update/:number", (req, res) => { 
+  // 本来は変更する番号が存在するか，各項目が正しいか厳重にチェックする 
+   // 本来ならここにDBとのやり取りが入る 
+   saitama[req.params.number].name = req.body.name; 
+   saitama[req.params.number].adress = req.body.adress; 
+   saitama[req.params.number].open = req.body.open; 
+   saitama[req.params.number].time = req.body.time; 
+   saitama[req.params.number].comment = req.body.comment; 
+   console.log(saitama); 
+   res.redirect('/saitama'); 
+}); 
+
+app.get("/saitama/:number", (req, res) => { 
+  // 本来ならここにDBとのやり取りが入る 
+  const number = req.params.number; 
+  const detail = saitama[number]; 
+  res.render('saitama_detail', { id: number, data: detail }); 
+}); 
+
+app.get("/chiba", (req, res) => { 
+  // 本来ならここにDBとのやり取りが入る 
+  res.render('chiba', { data: chiba }); 
+}); 
+
+app.get("/chiba_add", (req, res) => { 
+  let name = req.query.name; 
+  let adress = req.query.adress; 
+  let open = req.query.open; 
+  let time = req.query.time; 
+  let comment = req.query.comment; 
+  let newdata = {name: name,adress: adress,open: open,time: time,comment: comment}; 
+  chiba.push(newdata); 
+  res.redirect('/public/chiba_add.html'); 
+}); 
+
+// Edit 
+app.get("/chiba/edit/:number", (req, res) => { 
+  // 本来ならここにDBとのやり取りが入る 
+  const number = req.params.number; 
+  const detail = chiba[number]; 
+  res.render('chiba_edit', { id: number, data: detail }); 
+}); 
+
+// Update 
+app.post("/chiba/update/:number", (req, res) => { 
+  // 本来は変更する番号が存在するか，各項目が正しいか厳重にチェックする 
+   // 本来ならここにDBとのやり取りが入る 
+   chiba[req.params.number].name = req.body.name; 
+   chiba[req.params.number].adress = req.body.adress; 
+   chiba[req.params.number].open = req.body.open; 
+   chiba[req.params.number].time = req.body.time; 
+   chiba[req.params.number].comment = req.body.comment; 
+   console.log(chiba); 
+   res.redirect('/chiba'); 
+}); 
+
+app.get("/chiba/:number", (req, res) => { 
+  // 本来ならここにDBとのやり取りが入る 
+  const number = req.params.number; 
+  const detail = chiba[number]; 
+  res.render('chiba_detail', { id: number, data: detail }); 
+});
+
 app.listen(8080, () => console.log("Example app listening on port 8080!"));

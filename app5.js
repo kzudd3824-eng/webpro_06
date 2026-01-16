@@ -4,6 +4,7 @@ const app = express();
 app.set('view engine', 'ejs');
 app.use("/public", express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
+
 let station2 = [
   { id:1, code:"JE01", name:"東京駅", change:"総武本線，中央線，etc", passengers:403831, distance:0 },
   { id:2, code:"JE02", name:"八丁堀駅", change:"日比谷線", passengers:31071, distance:1.2 },
@@ -14,6 +15,7 @@ let station2 = [
   { id:7, code:"JE18", name:"蘇我駅", change:"内房線，外房線", passengers:31328, distance:43.0 },
 ];
 
+// 一覧
 app.get("/keiyo2", (req, res) => {
   // 本来ならここにDBとのやり取りが入る
   res.render('keiyo2', {data: station2} );
@@ -50,6 +52,60 @@ app.get("/keiyo2_add", (req, res) => {
   res.render('db1', { data: station2 });
 });
 
+// Read
+app.get("/keiyo2/:number", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  const number = req.params.number;
+  const detail = station2[ number ];
+  res.render('keiyo2_detail', {id: number, data: detail} );
+});
+
+// Delete
+app.get("/keiyo2/delete/:number", (req, res) => {
+  // 本来は削除の確認ページを表示する
+  // 本来は削除する番号が存在するか厳重にチェックする
+  // 本来ならここにDBとのやり取りが入る
+  station2.splice( req.params.number, 1 );
+  res.redirect('/keiyo2' );
+});
+
+// Create
+app.post("/keiyo2", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  const id = station2.length + 1;
+  const code = req.body.code;
+  const name = req.body.name;
+  const change = req.body.change;
+  const passengers = req.body.passengers;
+  const distance = req.body.distance;
+  station2.push( { id: id, code: code, name: name, change: change, passengers: passengers, distance: distance } );
+  console.log( station2 );
+  res.render('keiyo2', {data: station2} );
+});
+
+// Edit
+app.get("/keiyo2/edit/:number", (req, res) => {
+  // 本来ならここにDBとのやり取りが入る
+  const number = req.params.number;
+  const detail = station2[ number ];
+  res.render('keiyo2_edit', {id: number, data: detail} );
+});
+
+// Update
+app.post("/keiyo2/update/:number", (req, res) => {
+  // 本来は変更する番号が存在するか，各項目が正しいか厳重にチェックする
+  // 本来ならここにDBとのやり取りが入る
+  station2[req.params.number].code = req.body.code;
+  station2[req.params.number].name = req.body.name;
+  station2[req.params.number].change = req.body.change;
+  station2[req.params.number].passengers = req.body.passengers;
+  station2[req.params.number].distance = req.body.distance;
+  console.log( station2 );
+  res.redirect('/keiyo2' );
+});
+
+
+
 app.get("/hello1", (req, res) => {
   const message1 = "Hello world";
   const message2 = "Bon jour";
@@ -83,33 +139,24 @@ app.get("/omikuji2", (req, res) => {
 });
 
 app.get("/janken", (req, res) => {
-  let janken = Number(req.query.janken);
+  let hand = req.query.hand;
   let win = Number( req.query.win );
   let total = Number( req.query.total );
-  console.log( {janken, win, total});
-  const num = Math.floor( Math.random() * 3 );
-  let gu = 0;
-  let ty = 0;
-  let pa = 0;
+  console.log( {hand, win, total});
+  const num = Math.floor( Math.random() * 3 + 1 );
   let cpu = '';
   let judgement = '';
-  if( num==0 ) cpu = 'グー';
-  else if( num==1 ) cpu = 'チョキ';
+  if( num==1 ) cpu = 'グー';
+  else if( num==2 ) cpu = 'チョキ';
   else cpu = 'パー';
   // ここに勝敗の判定を入れる
   // 以下の数行は人間の勝ちの場合の処理なので，
   // 判定に沿ってあいこと負けの処理を追加する
-  const result = (janken - num + 3) % 3;
-
-  if(result==0) judgement = '引き分け';
-  else if(result==2) judgement = '勝ち';
-  else judgement = '負け';
-
-  if(result==2) win += 1;
+  judgement = '勝ち';
+  win += 1;
   total += 1;
-
   const display = {
-    your: janken,
+    your: hand,
     cpu: cpu,
     judgement: judgement,
     win: win,
